@@ -32,11 +32,11 @@
 
 挑选喜欢的网站阅读
 
-![use](use1.gif)
+![use](READMEIMG/use1.gif)
 
 直接滑没有分页可言
 
-![use](/Users/en0th/Downloads/SAI/READMEIMG/use2.gif)
+![use](READMEIMG/use2.gif)
 
 聚合搜索让你更快找到漏洞
 
