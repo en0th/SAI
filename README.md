@@ -100,7 +100,7 @@
 
 相当于入口函数，添加到里面才能通过上层使用你定义好的接口
 
-![ cus2](READMEIMG/ cus2.png)
+![cus2](READMEIMG/cus2.png)
 
 #### 三、页面上添加按钮
 
