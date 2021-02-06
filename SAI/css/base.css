@@ -1,0 +1,38 @@
+*{
+    font-size: 0;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% auto;
+}
+
+a{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+input,select{
+    border: none;
+    outline: none;
+}
+
+img{
+    width: 100%;
+}
+
+body,html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: #ECEFF1;
+    overflow: hidden;
+    font: 12px/18px "Hiragino Sans GB","Microsoft Yahei",sans-serif;
+}
+
+h3,p{
+    margin: 0;
+    padding: 0;
+}
+

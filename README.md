@@ -24,7 +24,7 @@
 
 找到该插件然后更新
 
-![load](/Users/en0th/Downloads/SAI/READMEIMG/load.png)
+![load](READMEIMG/load.png)
 
 
 
@@ -32,7 +32,7 @@
 
 挑选喜欢的网站阅读
 
-![use](/Users/en0th/Downloads/SAI/READMEIMG/use1.gif)
+![use](use1.gif)
 
 直接滑没有分页可言
 
@@ -40,7 +40,7 @@
 
 聚合搜索让你更快找到漏洞
 
-![use](/Users/en0th/Downloads/SAI/READMEIMG/use3.gif)
+![use](READMEIMG/use3.gif)
 
 # 更新日志
 
