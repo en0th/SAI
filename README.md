@@ -30,9 +30,17 @@
 
 ### 使用方法简单看
 
-上图
+挑选喜欢的网站阅读
 
-![use](/Users/en0th/Downloads/SAI/READMEIMG/use.gif)
+![use](/Users/en0th/Downloads/SAI/READMEIMG/use1.gif)
+
+直接滑没有分页可言
+
+![use](/Users/en0th/Downloads/SAI/READMEIMG/use2.gif)
+
+聚合搜索让你更快找到漏洞
+
+![use](/Users/en0th/Downloads/SAI/READMEIMG/use3.gif)
 
 # 更新日志
 
