@@ -36,3 +36,23 @@ h3,p{
     padding: 0;
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: transparent !important;
+}

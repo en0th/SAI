@@ -35,7 +35,11 @@ async function moreSD(){
 async function searching(v, i, m){
     i = i ? parseInt(i.replace('opt', '')) : 1;
     if (!v || !i){setDataToSP('m');return false;}
-    ldDom.innerHTML = '<img src="../images/loadding.gif" alt="">';
+    if(search_page == 1){
+        ldDom.innerHTML = '<img src="../images/loadding.gif" alt="">';
+    } else {
+        document.querySelector('#l_d_loadding').classList.add('l_d_loadding_show');
+    }
     showList(v, i, m);
     thDom.innerText = `搜索 ${v} 找到约 ??? 条结果 (往下刷就行甭管有多少条结果)`;
 }
@@ -77,6 +81,7 @@ function setDataToSP(type){
             `;
             html += h;
         }
+        html += '<div id="l_d_loadding"></div>';
     } else {
         html = '<span class="note">没有搜索到内容</span>';
     };

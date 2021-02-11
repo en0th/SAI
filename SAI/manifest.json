@@ -1,6 +1,6 @@
 {
     "name": "今日安全",
-    "version": "1.1",
+    "version": "1.2",
     "description": "看今日安全，漏洞全知道",
     "permissions": ["tabs", "declarativeContent", "https://*/"],
     "chrome_url_overrides" : {

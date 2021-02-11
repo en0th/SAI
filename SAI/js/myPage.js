@@ -50,7 +50,7 @@ async function setDataToPage(dataList, index){
     if (!dataList || !index)return false;
     const aLdom = document.querySelector(`main .a_l:nth-of-type(${index})`);
     const aSdom = aLdom.querySelector('.a_as');
-    const aTdom = aLdom.querySelector('.a_t > select');
+    const aTdom = aLdom.querySelector('.a_t > .a_t_box > select');
     let {data, info: {origin}} = dataList;
     aTdom.value = PL.indexOf(origin);
     let ALL = '';
