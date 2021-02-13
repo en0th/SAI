@@ -16,6 +16,11 @@ for(let item of optDom){
         cur = item.id;
     }
 }
+function setCur(i){
+    clearCur();
+    optDom[i - 1].classList.add('cur');
+    cur = `opt${i}`;
+}
 function clearCur(){
     for (let item of optDom){
         item.classList.remove('cur');
@@ -28,12 +33,18 @@ ldDom.onscroll = () => moreSD();
 async function moreSD(){
     inBottomDo(ldDom, () => {
         search_page += 1;
-        searching(window.top['search_con'], cur, 'y')
+        searching(window.top['search_con'], cur, undefined, 'y')
     })
 }
 
-async function searching(v, i, m){
+async function searching(v, i, t=0, m='n'){
     i = i ? parseInt(i.replace('opt', '')) : 1;
+    switch (parseInt(t)) {
+        case 1: i = 1; break;
+        case 2: i = 2; break;
+        case 3: i = 6; break;
+    }
+    setCur(i);
     if (!v || !i){setDataToSP('m');return false;}
     if(search_page == 1){
         ldDom.innerHTML = '<img src="../images/loadding.gif" alt="">';
@@ -41,21 +52,16 @@ async function searching(v, i, m){
         document.querySelector('#l_d_loadding').classList.add('l_d_loadding_show');
     }
     showList(v, i, m);
-    thDom.innerText = `搜索 ${v} 找到约 ??? 条结果 (往下刷就行甭管有多少条结果)`;
 }
 
 async function showList(v, i, m){
-    m = m ? m : 'n';
-    if (m === 'y'){
-        let d = await switchSApi(v, i, search_page);
-        data = data.concat(d);
-        if (!d.length) alert('已经没有更多内容了');
-        setDataToSP();
-        return;
-    }
-    data = await switchSApi(v, i, search_page);
+    let d = await switchSApi(v, i, search_page);
+    if (m === 'y' && !d.length)alert('已经没有更多内容了');
+    data = m === 'y' ? data.concat(d) : d;
+    data = orderByDateNew(data);
     if(!data.length) alert('搜索错误或者没有找到内容');
     setDataToSP();
+    thDom.innerText = `搜索 ${v} 找到约 ${data.length} 条结果`;
 }
 
 /**

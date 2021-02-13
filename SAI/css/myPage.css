@@ -74,16 +74,33 @@ header .left .logo div > p{
     margin-top: 7px;
 }
 
-
-header .left input{
-    width: 450px;
-    height: 35px;
-    margin: 0;
-    margin-left: 20px;
-    padding: 0;
+header .left .search_box{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     background: #F1F5F9;
+    margin-left: 20px;
+    height: 35px;
+}
+
+header .left .search_box > .select_box > .select_title{
+    background-color: #F1F5F9;
+}
+
+header .left .search_box > i{
+    line-height: 35px;
+    margin-right: 10px;
+}
+
+header .left #search{
+    width: 450px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-size: 14px;
     text-indent: 10px;
+    background-color: transparent;
+    position: relative;
 }
 
 header .github{
@@ -298,7 +315,7 @@ header .nav_list{
 @keyframes navdown{
     0%{
         opacity: 0;
-        transform: translateY(-100%);
+        transform: translateY(-80%);
     }
     100%{
         opacity: 1;
@@ -328,4 +345,14 @@ header .blogs > .b_l > .b_i {
 
 header .blogs > .b_l > .b_i:hover{
     color: blue;
+}
+
+#AL1,
+#AL2{
+    width: 120px;
+}
+
+#AL1 > .select_title,
+#AL2 > .select_title{
+    justify-content: flex-start;
 }

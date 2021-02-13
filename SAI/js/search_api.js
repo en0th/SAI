@@ -1,4 +1,5 @@
 const preDom = document.querySelector('#mask_content');
+const cbiDom = document.querySelector('#content_by_iframe');
 
 function generateData(){
     let o = {
@@ -12,19 +13,20 @@ function generateData(){
 
 async function switchSApi(v, i, p){
     p = p ? parseInt(p) : 1;
-    if (i == 1){
-        return await maxSP(v, p);
-    } else if (i == 2){
-        return await searchXZ(v, p);
-    } else if (i == 3){
-        return await searchAnQuanKe(v, p);
-    } else if(i == 4){
-        return await searchWY(v, p);
-    } else if(i == 5){
-        return await searchWY(v, p, 'by_drops');
-    } else if(i == 6){
-        return await searchSeeBug(v, p);
+    let fun = '';
+    switch (i) {
+        case 1: fun = 'maxSP';break;
+        case 2: fun = 'maxWZ';break;
+        case 3: fun = 'searchXZ';break;
+        case 4: fun = 'searchAnQuanKe';break;
+        case 5: fun = 'searchWYarticle';break;
+        case 6: fun = 'maxLD';break;
+        case 7: fun = 'searchWY';break;
+        case 8: fun = 'searchSeeBug';break;
+        case 9: fun = 'searchAnQuanKeCVE';break;
+        default:fun = 'maxSP';break;
     }
+    return await window[fun](v, p);
 }
 
 async function maxSP(key, page){
@@ -33,8 +35,35 @@ async function maxSP(key, page){
         searchXZ(key, page),
         searchAnQuanKe(key, page),
         searchWY(key, page),
-        searchWY(page, page, 'by_drops'),
+        searchWYarticle(page, page),
         searchSeeBug(key, page),
+        searchAnQuanKeCVE(key, page),
+    ]);
+    for (let i of list){
+        ALL_LIST = ALL_LIST.concat(i);
+    }
+    ALL_LIST = orderByDateNew(ALL_LIST);
+    return ALL_LIST;
+}
+async function maxWZ(key, page){
+    let ALL_LIST = [];
+    const list = await Promise.all([
+        searchXZ(key, page),
+        searchAnQuanKe(key, page),
+        searchWYarticle(page, page),
+    ]);
+    for (let i of list){
+        ALL_LIST = ALL_LIST.concat(i);
+    }
+    ALL_LIST = orderByDateNew(ALL_LIST);
+    return ALL_LIST;
+}
+async function maxLD(key, page){
+    let ALL_LIST = [];
+    const list = await Promise.all([
+        searchWY(key, page),
+        searchSeeBug(key, page),
+        searchAnQuanKeCVE(key, page),
     ]);
     for (let i of list){
         ALL_LIST = ALL_LIST.concat(i);
@@ -43,14 +72,15 @@ async function maxSP(key, page){
     return ALL_LIST;
 }
 
+// 排序
 function orderByDateNew(data_list){
     let list = data_list;
-    for (let i=0;i < list.length;i++){
-        for (let j=0;j < list.length - i;j++){
-            if (new Date(list[i]['date']) > new Date(list[j]['date'])){
-                let tmp = list[i];
-                list[i] = list[j];
-                list[j] = tmp;
+    for (let i=0;i < list.length -1;i++){
+        for (let j=0;j < list.length - 1 - i;j++){
+            if (new Date(list[j]['date']) < new Date(list[j+1]['date'])){
+                let tmp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = tmp;
             }
         }
     }
@@ -113,8 +143,7 @@ async function searchAnQuanKe(key, page){
     return list;
 }
 
-async function searchWY(key, page, type){
-    type = type == 'by_drops' ? 'by_drops' : 'by_bugs';
+async function searchWY(key, page, type='by_bugs'){
     if (!page || !key) return false;
     let list = [];
     try{
@@ -144,6 +173,10 @@ async function searchWY(key, page, type){
     return list;
 }
 
+async function searchWYarticle(key, page){
+    return searchWY(key, page, 'by_drops');
+}
+
 async function searchSeeBug(key, page){
     if (!page || !key) return false;
     let list = [];
@@ -170,5 +203,32 @@ async function searchSeeBug(key, page){
         })
     } catch (e){console.log(e)};
     if(list.length) console.log('search seebug ok');
+    return list;
+}
+
+async function searchAnQuanKeCVE(key, page){
+    let list = [];
+    if (!page || !key) return false;
+    try{
+        await fetch(`https://api.anquanke.com/data/v1/search/vul?page=${page}&size=20&s=${encodeURI(key)}`, {
+            method: 'GET',
+            headers: new Headers({
+                "Accept": "application/json; charset=utf-8"
+            }),
+        })
+        .then(async res => {
+            let originPath = 'https://www.anquanke.com/vul/id/';
+            const {data} = await res.json();
+            let L = [];
+            if(data){
+                for (let i of data){
+                    let o = generateData(originPath + i.id, i.name, "安全客", i.updated);
+                    L.push(o);
+                }
+            }
+            list = L;
+        })
+    } catch (e){};
+    if (list) console.log('search aqkcve ok');
     return list;
 }
