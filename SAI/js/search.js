@@ -77,10 +77,15 @@ function setDataToSP(type){
     }
     if(data.length){
         for (let i of data){
+            let detail = '';
+            if (i.detail){
+                detail = `<p>${i.detail}</p>`;
+            }
             let h = 
             `
             <a class="l_i" href="${i.url}" target="_blank">
-                <h3>${i.title}</h3>
+                <h3 style="${i.detail ? 'width: 20%;' : ''}">${i.title}</h3>
+                ${detail}
                 <span>${i.origin}</span>
                 <span>${i.date}</span>
             </a>

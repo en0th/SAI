@@ -6,7 +6,8 @@ function generateData(){
         "url": arguments[0],
         "title": arguments[1],
         "origin": arguments[2],
-        "date": arguments[3]
+        "date": arguments[3],
+        "detail": arguments.length >= 4 ? arguments[4] : '',
     }
     return o;
 }
@@ -24,6 +25,7 @@ async function switchSApi(v, i, p){
         case 7: fun = 'searchWY';break;
         case 8: fun = 'searchSeeBug';break;
         case 9: fun = 'searchAnQuanKeCVE';break;
+        case 10: fun = 'searchSaucsCVE';break;
         default:fun = 'maxSP';break;
     }
     return await window[fun](v, p);
@@ -38,6 +40,7 @@ async function maxSP(key, page){
         searchWYarticle(page, page),
         searchSeeBug(key, page),
         searchAnQuanKeCVE(key, page),
+        searchSaucsCVE(key, page),
     ]);
     for (let i of list){
         ALL_LIST = ALL_LIST.concat(i);
@@ -64,6 +67,7 @@ async function maxLD(key, page){
         searchWY(key, page),
         searchSeeBug(key, page),
         searchAnQuanKeCVE(key, page),
+        searchSaucsCVE(key, page),
     ]);
     for (let i of list){
         ALL_LIST = ALL_LIST.concat(i);
@@ -230,5 +234,37 @@ async function searchAnQuanKeCVE(key, page){
         })
     } catch (e){};
     if (list) console.log('search aqkcve ok');
+    return list;
+}
+
+async function searchSaucsCVE(key, page){
+    if (!page || !key) return false;
+    let list = [];
+    try{
+        await fetch(`https://www.saucs.com/search?q=${encodeURI(key)}&page=${page}`)
+        .then(async res => {
+            let originPath = 'https://www.saucs.com';
+            let html = await res.text();
+            html = splitHtml(html, '<table class="table">', '</table>');
+            preDom.innerHTML = '<table class="table">' + html +'</table>';
+            let trTDom = preDom.querySelectorAll('tbody > tr:nth-of-type(2n+1)');
+            let trDDom = preDom.querySelectorAll('tbody > tr:nth-of-type(2n)');
+            let L = [];
+            if(trTDom.length && trDDom.length){
+                for(let i = 0; i < trTDom.length; i++){
+                    let item = trTDom[i];
+                    let aDom = item.querySelector('td:nth-child(1) > a');
+                    let dDom = item.querySelector('td.col-md-2.text-center');
+                    let detail = trDDom[i].querySelector('td');
+                    let url = aDom.href;
+                    url = originPath + url.substr(url.indexOf('/cve/'), url.length);
+                    let obj = generateData(url, aDom.innerHTML, "saucs漏洞库", dDom.innerHTML, detail.innerHTML);
+                    L.push(obj);
+                }
+            }
+            list = L;
+        })
+    } catch (e){console.log(e)};
+    if(list.length) console.log('search saucs cve ok');
     return list;
 }

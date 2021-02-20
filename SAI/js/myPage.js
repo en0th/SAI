@@ -1,23 +1,22 @@
-var PL = ['先知社区', '安全客', 'freebuf', 'freebuf快讯', 'seebug'];
+var setting = {};
 
 var aListData_1 = new getListTemple();
 var aListData_2 = new getListTemple();
 var search_con = '';
 var search_opt = 1;
 
+// 初始化
 const mask = document.querySelector('#mask');
-// 选项初始化
 const search_select = new selectDom('#search_select');
 search_select.initChange(() => {search_opt = search_select.getSelectValue()});
 const ALS1 = new selectDom('#AL1');
 const ALS2 = new selectDom('#AL2');
-ALS1.initChange(() => {changeData(ALS1.getSelectValue(), 1);})
-ALS2.initChange(() => {changeData(ALS2.getSelectValue(), 2);})
-// 文章内容列表
 const AS1 = document.querySelector('.a_as');
 const AS2 = document.querySelectorAll('.a_as')[1];
 AS1.onscroll = () => moreData(AS1, 1);
 AS2.onscroll = () => moreData(AS2, 2);
+ALS1.initChange(() => { aListData_1.page = 1; AS1.scrollTop = 0; changeData(ALS1.getSelectValue(), 1); })
+ALS2.initChange(() => { aListData_2.page = 1; AS2.scrollTop = 0; changeData(ALS2.getSelectValue(), 2); })
 const searchDom = document.querySelector('#search');
 const SPDom = document.querySelector('iframe');
 // 进行搜索
@@ -45,6 +44,8 @@ if(!als2_cus){localStorage.setItem('als1_cus', 1);als2_cus = 1;}
 ALS1.setSelectValue(als1_cus);
 ALS2.setSelectValue(als2_cus);
 window.onload = async () => {
+    setting = await fetch('./setting.json').then(async (res) => await res.json());
+    setingValue();
     await Promise.all([
         changeData(ALS1.getSelectValue(), 1),
         changeData(ALS2.getSelectValue(), 2)
@@ -81,7 +82,6 @@ async function setDataToPage(dataList, index){
 }
 
 async function changeData(originID, index, type){
-    originID = originID >= 0 && originID < PL.length ? originID : 0;
     if(!originID && !index) return false;
     let tmpObj = {};
     Object.assign(tmpObj, window[`aListData_${index}`]);
@@ -101,4 +101,13 @@ function letMore(i){
     window[`aListData_${i}`].page += 1;
     let v = document.querySelector(`#AL${i}`).value
     changeData(v, i, 'more');
+}
+
+function setingValue(){
+    const bLDOM = document.querySelector('.b_l');
+    let bL_html = '';
+    for (let i of setting.blogLinks){
+        bL_html += `<a href="${i.url}" class="b_i">${i.title}</a>`;
+    }
+    bLDOM.innerHTML = bL_html;
 }

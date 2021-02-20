@@ -34,6 +34,8 @@ main .con .sel{
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 6px 0 rgba(0,0,0,.04);
+    overflow: scroll;
+    padding-bottom: 50px;
 }
 
 main .con .sel .opt{
@@ -121,6 +123,14 @@ main .list .l_i h3{
     margin: 0;
     padding: 0;
     width: 75%;
+}
+
+main .list .l_i p{
+    padding: 0 20px;
+    font-size: 12px;
+    width: 55%;
+    line-height: 15px;
+    color: #352323;
 }
 
 main .list .l_i span{

@@ -43,6 +43,16 @@ class selectDom{
                 hiddenList();
             }else{
                 showList();
+                function out({path}){
+                    if (path.indexOf(sDom) == -1){
+                        on = !on;
+                        hiddenList();
+                    }
+                    document.body.removeEventListener('click', out);
+                }
+                setTimeout(() => {
+                    document.body.addEventListener('click', out);
+                }, 300)
             }
             on = !on;
         }
