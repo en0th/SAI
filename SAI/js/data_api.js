@@ -1,19 +1,16 @@
 const preDom = document.querySelector('#mask_content');
 
 async function switchOrigin(index, page){
-    if (index == 0){
-        return await getXZaliyunData(page);
-    } else if(index == 1){
-        return await getAnQuanKeData(page);
-    } else if(index == 2){
-        return await getFreeBufData(page);
-    } else if(index == 3){
-        return await getFreeBufKXData(page);
-    } else if(index == 4){
-        return await getSeeBugData(page);
-    } else{
-        return false;
+    let fun = '';
+    switch (index) {
+        case 0: fun = 'getXZaliyunData'; break;
+        case 1: fun = 'getAnQuanKeData'; break;
+        case 2: fun = 'getFreeBufData'; break;
+        case 3: fun = 'getFreeBufKXData'; break;
+        case 4: fun = 'getSeeBugData'; break;
+        default: fun = 'getXZaliyunData'; break;
     }
+    return await window[fun](page);
 }
 
 function makeList(info){

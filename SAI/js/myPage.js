@@ -99,7 +99,7 @@ async function moreData(oDom, index){
 
 function letMore(i){
     window[`aListData_${i}`].page += 1;
-    let v = document.querySelector(`#AL${i}`).value
+    let v = i === 1 ? ALS1.getSelectValue() : ALS2.getSelectValue();
     changeData(v, i, 'more');
 }
 
