@@ -2,7 +2,7 @@ const preDom = document.querySelector('#mask_content');
 
 async function switchOrigin(index, page){
     let fun = '';
-    switch (index) {
+    switch (parseInt(index)) {
         case 0: fun = 'getXZaliyunData'; break;
         case 1: fun = 'getAnQuanKeData'; break;
         case 2: fun = 'getFreeBufData'; break;
