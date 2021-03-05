@@ -1,0 +1,139 @@
+*{
+    font-size: 0;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% auto;
+}
+
+a{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+input,select{
+    border: none;
+    outline: none;
+}
+
+img{
+    width: 100%;
+}
+
+body,html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    min-width: 1000px;
+    background: #ECEFF1;
+    overflow-y: hidden;
+    font: 12px/18px "Hiragino Sans GB","Microsoft Yahei",sans-serif;
+}
+
+h3,p{
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: transparent !important;
+}
+
+.select_box{
+    position: relative;
+    width: auto;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.select_box > .select_title{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 0 10px;
+}
+
+.select_box > .select_title > .select_value{
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.select_box > .select_title > i{
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.select_box > .select_list{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: none;
+    flex-flow: column nowrap;
+    background-color: white;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0px 6px 7px 0 rgba(0,0,0,.1);
+    animation: selectdown .3s ease 0s 1 forwards;
+    z-index: -1;
+}
+
+@keyframes selectdown{
+    0%{
+        opacity: 0;
+        top: 0;
+    }
+    100%{
+        opacity: 1;
+        top: 100%;
+    }
+}
+
+.select_show_list{
+    display: flex !important;
+}
+
+.select_box > .select_list .select_list_item{
+    width: 100%;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: left;
+    padding: 7px 5px;
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+.select_box > .select_list .select_list_item:hover{
+    color: blue;
+}
+
+.maxhidden{
+    z-index: 9999 !important;
+    visibility: hidden !important;
+}

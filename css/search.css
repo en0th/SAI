@@ -1,0 +1,219 @@
+body,html{
+   width: 100%;
+   height: 100%; 
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+main > h3{
+    font-size: 15px;
+    margin: 5px;
+    padding: 0;
+    font-weight: 400;
+    color: #767E8D;
+}
+
+main .con{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+main .con .sel{
+    width: 220px;
+    height: 100%;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.04);
+    overflow: scroll;
+    padding-bottom: 50px;
+}
+
+main .con .sel .opt{
+    display: inline-block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    transition: all .3s ease;
+    border-radius: 5px;
+    background-color: #DADADA;
+}
+
+main .con .sel .opt::after{
+    content: '>';
+    font-size: 12px;
+    color: white;
+    width: 45px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: all .5s ease;
+}
+
+main .cur{
+    background-color: #0F88EB !important;
+}
+
+main .con .sel .opt:hover{
+    background-color: #0F88EB;
+}
+
+main .con .list{
+    flex: 1;
+    height: 100%;
+    padding-left: 40px;
+}
+
+main .con .list .l_d{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.04);
+    padding-top: 15px;
+    overflow: scroll;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+main .list .l_i{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    line-height: 26px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid #dadada69;
+    color: black;
+    position: relative;
+}
+
+main .list .l_n::before{
+    content: 'new';
+    position: absolute;
+    left: 2px;
+    font-size: 12px;
+    background-color: #ff0000d1;
+    color: white;
+    margin: 0;
+    line-height: 1;
+    padding: 2px;
+    transform: scale(.7);
+}
+
+main .list .l_i:hover h3{
+    color: blue;
+}
+
+main .list .l_i::after{
+    content: '>';
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    width: 35px;
+    margin: auto 0;
+}
+
+main .list .l_i h3{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 75%;
+}
+
+main .list .l_i p{
+    padding: 0 20px;
+    font-size: 12px;
+    width: 55%;
+    line-height: 15px;
+    color: #352323;
+}
+
+main .list .l_i span{
+    font-size: 12px;
+    color: #767E8D;
+    text-align: center;
+}
+
+main .list .l_i span:nth-of-type(1){
+    width: 120px;
+}
+
+main .list .l_i span:nth-of-type(2){
+    width: 200px;
+}
+
+main .btn_back{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: #bbbbbb;
+    transition: color .3s ease;
+}
+
+main .btn_back:hover{
+    color: black;
+}
+
+main .note{
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+#l_d_loadding{
+    opacity: 0;
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    background: url('../images/more_loadding.gif') no-repeat center/auto 100% transparent;
+    transition: opacity .3s;
+}
+
+.l_d_loadding_show{
+    opacity: 1 !important;
+}
+
+.split_line{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.split_line::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-index: -1;
+}
+.split_line > span{
+    font-size: 12px;
+    color: #666;
+    background-color: white;
+    padding: 0 5px;
+}
