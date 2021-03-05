@@ -64,10 +64,11 @@ async function setDataToPage(dataList, index){
     for (let item of data){
         let html =         
         `
-            <div class="a_i">
+            <div class="a_i ${item.summary ? 'a_hs': ''}">
                 <a href="${item.url}"></a>
                 <div class="a_c">
                     <h3>${item.title}</h3>
+                    ${item.summary ? `<p class="a_sum">${item.summary}<p>`: ''}
                     <p>${item.author}</p>
                 </div>
             </div>

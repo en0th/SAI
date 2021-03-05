@@ -171,6 +171,10 @@ main .a_as > .a_i{
     border-radius: 3px;
 }
 
+main .a_hs{
+    height: 90px !important;
+}
+
 main .a_as > .a_i:nth-of-type(1){
     padding-top: 0;
     margin-top: 0;
@@ -186,6 +190,14 @@ main .a_i > a{
     position: absolute;
     top: 0;
     left: 0;
+}
+
+main .a_sum{
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 main .a_c{

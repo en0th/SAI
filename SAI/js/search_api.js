@@ -8,6 +8,7 @@ function generateData(){
         "origin": arguments[2],
         "date": arguments[3],
         "detail": arguments.length >= 4 ? arguments[4] : '',
+        "page": arguments.length >= 5 ? arguments[5] : '',
     }
     return o;
 }
@@ -26,6 +27,8 @@ async function switchSApi(v, i, p){
         case 8: fun = 'searchSeeBug';break;
         case 9: fun = 'searchAnQuanKeCVE';break;
         case 10: fun = 'searchSaucsCVE';break;
+        case 11: fun = 'searchFreebuf'; break;
+        case 12: fun = 'searchHacking8';break;
         default:fun = 'maxSP';break;
     }
     return await window[fun](v, p);
@@ -41,6 +44,8 @@ async function maxSP(key, page){
         searchSeeBug(key, page),
         searchAnQuanKeCVE(key, page),
         searchSaucsCVE(key, page),
+        searchFreebuf(key, page),
+        searchHacking8(key, page),
     ]);
     for (let i of list){
         ALL_LIST = ALL_LIST.concat(i);
@@ -54,6 +59,8 @@ async function maxWZ(key, page){
         searchXZ(key, page),
         searchAnQuanKe(key, page),
         searchWYarticle(page, page),
+        searchFreebuf(key, page),
+        searchHacking8(key, page),
     ]);
     for (let i of list){
         ALL_LIST = ALL_LIST.concat(i);
@@ -109,7 +116,7 @@ async function searchXZ(key, page){
                     let url = titleDom.href;
                     url = originPath + (url.substring(url.indexOf('/t/'), url.length));
                     let date = item.querySelector('.topic-info').innerHTML.toString().split('/ ')[1].substr(0,10);
-                    let i = generateData(url, titleDom.innerHTML.trim(), "先知社区", date);
+                    let i = generateData(url, titleDom.innerHTML.trim(), "先知社区", date, '',page);
                     L.push(i);
                 }
             }
@@ -136,14 +143,14 @@ async function searchAnQuanKe(key, page){
             let L = [];
             if(data){
                 for (let i of data){
-                    let o = generateData(originPath + i.id, i.title, "安全客", i.date.substr(0,10));
+                    let o = generateData(originPath + i.id, i.title, "安全客", i.date.substr(0,10), '',page);
                     L.push(o);
                 }
             }
             list = L;
         })
     } catch (e){};
-    if (list) console.log('search aqk ok');
+    if (list.list) console.log('search aqk ok');
     return list;
 }
 
@@ -166,7 +173,7 @@ async function searchWY(key, page, type='by_bugs'){
                     let url = tdDom[1].querySelector('a').href;
                     url = originPath + (url.substring(url.indexOf('static/'), url.length));
                     let date = tdDom[0].innerHTML;
-                    let i = generateData(url, titleDom.trim(), "乌云漏洞库", date);
+                    let i = generateData(url, titleDom.trim(), "乌云漏洞库", date, '',page);
                     L.push(i);
                 }
             }
@@ -199,7 +206,7 @@ async function searchSeeBug(key, page){
                     let dDom = item.querySelector('td.datetime');
                     let url = aDom.href;
                     url = originPath + url.substr(url.indexOf('/vuldb/'), url.length);
-                    let i = generateData(url, aDom.innerHTML, "seebug漏洞库", dDom.innerHTML);
+                    let i = generateData(url, aDom.innerHTML, "seebug漏洞库", dDom.innerHTML, '',page);
                     L.push(i);
                 }
             }
@@ -226,14 +233,14 @@ async function searchAnQuanKeCVE(key, page){
             let L = [];
             if(data){
                 for (let i of data){
-                    let o = generateData(originPath + i.id, i.name, "安全客", i.updated);
+                    let o = generateData(originPath + i.id, i.name, "安全客", i.updated, '',page);
                     L.push(o);
                 }
             }
             list = L;
         })
     } catch (e){};
-    if (list) console.log('search aqkcve ok');
+    if (list.length) console.log('search aqkcve ok');
     return list;
 }
 
@@ -258,7 +265,7 @@ async function searchSaucsCVE(key, page){
                     let detail = trDDom[i].querySelector('td');
                     let url = aDom.href;
                     url = originPath + url.substr(url.indexOf('/cve/'), url.length);
-                    let obj = generateData(url, aDom.innerHTML, "saucs漏洞库", dDom.innerHTML, detail.innerHTML);
+                    let obj = generateData(url, aDom.innerHTML, "saucs漏洞库", dDom.innerHTML, detail.innerHTML, page);
                     L.push(obj);
                 }
             }
@@ -267,4 +274,58 @@ async function searchSaucsCVE(key, page){
     } catch (e){console.log(e)};
     if(list.length) console.log('search saucs cve ok');
     return list;
+}
+
+async function searchFreebuf(key, page){
+    let olist = [];
+    if (!page || !key) return false;
+    try{
+        await fetch(`https://search.freebuf.com/search/find/?year=0&articleType=0&time=0&tabType=1&content=${encodeURI(key)}&page=${page}`, {
+            method: 'GET',
+            headers: new Headers({
+                "Accept": "application/json; charset=utf-8"
+            }),
+        })
+        .then(async res => {
+            const {data:{list}} = await res.json();
+            let L = [];
+            if(list.length){
+                for (let i of list){
+                    let o = generateData(i.url, i.title, "freebuf", i.time, i.content, page);
+                    L.push(o);
+                }
+            }
+            olist = L;
+        })
+    } catch (e){};
+    if (olist.length) console.log('search freebuf ok');
+    return olist;
+}
+
+async function searchHacking8(key, page){
+    let olist = [];
+    try{
+        await fetch(`https://i.hacking8.com/?s=${encodeURI(key)}&page=${page}`)
+        .then(async res => {
+            let html = await res.text();
+            html = '<table class="table">' + splitHtml(html, '<table class="table">', '</table>') + '</table>';
+            html = html.replace(/<img alt="..." class="media-object" src=".*?">/g, ""); // 删除图片加载
+            preDom.innerHTML = html;
+            let trDom = preDom.querySelectorAll('tbody > tr');
+            let L = [];
+            if(trDom.length){
+                for(let item of trDom){
+                    const aDom = item.querySelector('td:nth-child(3) > div > div.link > a');
+                    const time = item.querySelector('td:nth-child(1)');
+                    const author = item.querySelector('td:nth-child(2) > a > span');
+                    const summary = item.querySelector('td:nth-child(3) > div > div.media-body > pre');
+                    let i = generateData(aDom.href, aDom.innerHTML, `hacking8 ${author.innerHTML}`, time.innerHTML, summary ? summary.innerHTML : '', page);
+                    L.push(i);
+                }
+            }
+            olist = L;
+        })
+    } catch (e){};
+    if(olist.length)console.log('hacking8 ok');
+    return olist;
 }

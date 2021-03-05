@@ -104,6 +104,19 @@ main .list .l_i{
     position: relative;
 }
 
+main .list .l_n::before{
+    content: 'new';
+    position: absolute;
+    left: 2px;
+    font-size: 12px;
+    background-color: #ff0000d1;
+    color: white;
+    margin: 0;
+    line-height: 1;
+    padding: 2px;
+    transform: scale(.7);
+}
+
 main .list .l_i:hover h3{
     color: blue;
 }

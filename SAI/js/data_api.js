@@ -8,6 +8,7 @@ async function switchOrigin(index, page){
         case 2: fun = 'getFreeBufData'; break;
         case 3: fun = 'getFreeBufKXData'; break;
         case 4: fun = 'getSeeBugData'; break;
+        case 5: fun = 'getHacking8Data'; break;
         default: fun = 'getXZaliyunData'; break;
     }
     return await window[fun](page);
@@ -24,7 +25,8 @@ function genareteMData(){
     let o = {
         "url": arguments[0],
         "title": arguments[1],
-        "author": arguments[2]
+        "author": arguments[2],
+        "summary": arguments.length >= 4 ? arguments[3] : ''
     }
     return o;
 }
@@ -186,8 +188,38 @@ async function getSeeBugData(page){
             }
             olist.data = dataList;
         })
-    } catch (e){console.log(e)};
+    } catch (e){};
     if(olist.data.length)console.log('seebug ok');
     return olist;
 }
 
+async function getHacking8Data(page){
+    page = page ? page : 1;
+    let olist = makeList([
+        'hacking8',
+        'https://i.hacking8.com/static/logo.png'
+    ]);
+    try{
+        await fetch(`https://i.hacking8.com/?page=${page}`)
+        .then(async res => {
+            let html = await res.text();
+            html = '<table class="table">' + splitHtml(html, '<table class="table">', '</table>') + '</table>';
+            html = html.replace(/<img alt="..." class="media-object" src=".*?">/g, ""); // 删除图片加载
+            preDom.innerHTML = html;
+            let trDom = preDom.querySelectorAll('tbody > tr');
+            let dataList = [];
+            if(trDom.length){
+                for(let item of trDom){
+                    const aDom = item.querySelector('td:nth-child(3) > div > div.link > a');
+                    const author = item.querySelector('td:nth-child(2) > a > span');
+                    const summary = item.querySelector('td:nth-child(3) > div > div.media-body > pre');
+                    let i = genareteMData(aDom.href, aDom.innerHTML, author.innerHTML, summary ? summary.innerHTML : '');
+                    dataList.push(i);
+                }
+            }
+            olist.data = dataList;
+        })
+    } catch (e){};
+    if(olist.data.length)console.log('hacking8 ok');
+    return olist;
+}

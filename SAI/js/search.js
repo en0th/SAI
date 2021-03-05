@@ -83,7 +83,7 @@ function setDataToSP(type){
             }
             let h = 
             `
-            <a class="l_i" href="${i.url}" target="_blank">
+            <a class="l_i ${i.page == search_page ? 'l_n' : ''}" href="${i.url}" target="_blank">
                 <h3 style="${i.detail ? 'width: 20%;' : ''}">${i.title}</h3>
                 ${detail}
                 <span>${i.origin}</span>
