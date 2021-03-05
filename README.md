@@ -4,7 +4,7 @@
 
 更新到最新 v1.34 版本
 
-![new](READMEIMG/new.png)
+![new](https://91.usst.edu.cn/Photo/StudentMien/107c87d0-4970-4156-88e3-ecb24ba2e2af.png)
 
 > 如果有样式等问题，请去“插件扩展”处多点几次刷新
 
@@ -38,7 +38,7 @@
 
 找到该插件然后更新
 
-![load](READMEIMG/load.png)
+![load](https://91.usst.edu.cn/Photo/StudentMien/8ab19aa5-9f9d-4ee4-b0b5-f13b291ff03d.png)
 
 
 
@@ -165,25 +165,25 @@
 
 请求统一采用异步 Promise。编写 search_api.js 时直接复制上一个接口来编写。
 
-![cus1](READMEIMG/cus1.png)
+![cus1](https://91.usst.edu.cn//Photo/StudentMien/57bcacdd-dd63-4ce4-a722-073a67a8cf44.png)
 
 #### 二、增加到选项
 
 相当于入口函数，添加到里面才能通过上层使用你定义好的接口
 
-![cus2](READMEIMG/cus2.png)
+![cus2](https://91.usst.edu.cn//Photo/StudentMien/2d8340de-7367-4d42-87f7-5eb5d70e2f31.png)
 
 #### 三、页面上添加按钮
 
 当然离不开页面的交互，复制粘贴好后修改 **名字** 和对应的 **ID** 即可
 
-![ cus2](READMEIMG/cus3.png)
+![ cus2](https://91.usst.edu.cn//Photo/StudentMien/0ae62bc3-a39a-4eb6-aef3-8b11a64d0e74.png)
 
 #### 四、“聚合”
 
 如果你希望你的接口能在聚合一起出现可以这样做。编写 search_api.js 中的 maxSP 函数
 
-![cus4](READMEIMG/cus4.png)
+![cus4](https://91.usst.edu.cn//Photo/StudentMien/0c3a3b3b-ff29-4355-81bf-c0e9ceced1ff.png)
 
 # 最后
 
