@@ -22,7 +22,7 @@
 
 然后直接将整个文件夹拖放安装
 
-![install](READMEIMG/install.gif)
+![install](https://i.ibb.co/d6NM4bG/install.gif)
 
 （这个是v1.0的模样）
 
@@ -48,15 +48,15 @@
 
 挑选喜欢的网站阅读
 
-![use](READMEIMG/use1.gif)
+![img](https://i.ibb.co/fGqyvYt/use1.gif)
 
 直接滑没有分页可言
 
-![use](READMEIMG/use2.gif)
+![use](https://i.ibb.co/fGqyvYt/use2.gif)
 
 聚合搜索让你更快找到漏洞
 
-![use](READMEIMG/use3.gif)
+![use](https://i.ibb.co/ysmBVFP/use3.gif)
 
 # 更新日志
 
