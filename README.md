@@ -12,11 +12,11 @@
 
 克隆到本地
 
-`git clone https://github.com/linjiananallnt/SAI.git -b v1.34`
+`git clone https://github.com/linjiananallnt/SAI.git -b v1.35`
 
 如果是 码云 
 
-`git clone https://gitee.com/lin-jiancheng/SAI.git -b v1.34`
+`git clone https://gitee.com/lin-jiancheng/SAI.git -b v1.35`
 
 > 如今可以通过指定分支去下载本体，无需从“版本发行”下载压缩包了
 
