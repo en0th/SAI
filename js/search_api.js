@@ -150,7 +150,7 @@ async function searchAnQuanKe(key, page){
             list = L;
         })
     } catch (e){};
-    if (list.list) console.log('search aqk ok');
+    if (list.length) console.log('search aqk ok');
     return list;
 }
 
@@ -212,7 +212,7 @@ async function searchSeeBug(key, page){
             }
             list = L;
         })
-    } catch (e){console.log(e)};
+    } catch (e){};
     if(list.length) console.log('search seebug ok');
     return list;
 }
@@ -252,6 +252,7 @@ async function searchSaucsCVE(key, page){
         .then(async res => {
             let originPath = 'https://www.saucs.com';
             let html = await res.text();
+            console.log(html);
             html = splitHtml(html, '<table class="table">', '</table>');
             preDom.innerHTML = '<table class="table">' + html +'</table>';
             let trTDom = preDom.querySelectorAll('tbody > tr:nth-of-type(2n+1)');
@@ -271,7 +272,7 @@ async function searchSaucsCVE(key, page){
             }
             list = L;
         })
-    } catch (e){console.log(e)};
+    } catch (e){};
     if(list.length) console.log('search saucs cve ok');
     return list;
 }

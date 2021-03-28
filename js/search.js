@@ -11,15 +11,17 @@ for(let item of optDom){
         clearCur();
         search_page = 1;
         ldDom.scrollTop = 0;
-        await searching(window.top['search_con'], item.id);
         item.classList.add('cur');
         cur = item.id;
+        await searching(window.top['search_con'], item.id);
     }
 }
 function setCur(i){
     clearCur();
-    optDom[i - 1].classList.add('cur');
     cur = `opt${i}`;
+    optDom.forEach((v, i, a) => {
+        if (v.id == cur) v.classList.add('cur');
+    })
 }
 function clearCur(){
     for (let item of optDom){
